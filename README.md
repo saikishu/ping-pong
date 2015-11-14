@@ -4,16 +4,20 @@ game
 # TODO
 
 Player B AI
+
 Score updates
-Win logic
+
+Winner's logic
 
 Levels
 
-
 UI
+
 Social Share
 
 Multiplayer
+
+
 
 
 
