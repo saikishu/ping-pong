@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #53777A;
+    font-family: 'Lato', sans-serif;
+}
+
+.canvas_wrapper {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.canvas_wrapper h2 {
+    margin: 10px;
+    color: #ECD078
+}
+
+/*Helpers*/
+.text-center {
+    text-align: center;
+}
