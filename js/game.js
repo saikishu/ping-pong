@@ -20,8 +20,13 @@ jshint  esnext: true,
         ballXSpeed = 10,
         ballYPos,
         ballYSpeed = 5,
+        mousePosition,
         playerAYPos,
-        playerBYPos;
+        playerBYPos,
+        scores = {
+            "playerA" : 0,
+            "playerB" : 0
+        };
     /* Drawing */
     //draw game elements
     //draw rectangle
@@ -53,17 +58,25 @@ jshint  esnext: true,
         
     }
     
-    
-    
     /* Animation */
     function moveBall() {
         //right wall
         if (ballXPos >= canvas.width) {
             ballXSpeed = -ballXSpeed;
+            //not hitting bat - reset game
+            if ( (ballYPos < playerBYPos) || (ballYPos > (playerBYPos + BAT_HEIGHT) ) ) {
+                scores.playerA++;
+                reset();
+            }
         }
         //left wall
         if (ballXPos <= 0) {
             ballXSpeed = -ballXSpeed; // -(-)
+            //not hitting bat - reset game
+            if ( (ballYPos < playerAYPos) || (ballYPos > (playerAYPos + BAT_HEIGHT) ) ) {
+                scores.playerB++;
+                reset();
+            }
         }
         
         //top wall
@@ -80,8 +93,26 @@ jshint  esnext: true,
         
     }
     
-    function getMousePosition(evt) {
-        
+    function movePlayerABat() {
+        //TODO: Don't let the bat go off screen
+        playerAYPos = mousePosition.y - (BAT_HEIGHT / 2) ;
+    }
+    
+    function getMousePosition(e) {
+        var canvasRect = canvas.getBoundingClientRect();
+        var docroot = document.documentElement;
+        var mousePosition = {
+            "x" : e.clientX - canvasRect.left - docroot.scrollLeft,
+            "y" : e.clientY - canvasRect.top - docroot.scrollTop
+        };
+        return mousePosition;
+    }
+    
+    //Reset logic
+    function reset() {
+       console.log(scores);
+       ballXPos = canvas.width / 2;
+       ballYPos = canvas.height / 2;
     }
           
     
@@ -101,6 +132,11 @@ jshint  esnext: true,
             moveBall();
             drawGameElements();
         }, 1000 / FRAMES_PER_SECOND);
+        
+        canvas.addEventListener('mousemove',function(e) {
+            mousePosition = getMousePosition(e);
+            movePlayerABat();
+        });
         
     };
     
