@@ -54,8 +54,6 @@ jshint  esnext: true,
         drawRectangle(canvas.width - BAT_WIDTH, playerBYPos, BAT_WIDTH, BAT_HEIGHT, BAT_COLOR);
         //Ball
         drawCircle(ballXPos, ballYPos, BALL_SIZE, BALL_COLOR);
-        
-        
     }
     
     /* Animation */
@@ -94,7 +92,11 @@ jshint  esnext: true,
     }
     
     function movePlayerABat() {
-        //TODO: Don't let the bat go off screen
+        if (mousePosition.y > (canvas.height - (BAT_HEIGHT / 2) ) ) {
+            mousePosition.y = canvas.height - (BAT_HEIGHT / 2);
+        } else if (mousePosition.y < (BAT_HEIGHT / 2)) {
+            mousePosition.y = BAT_HEIGHT / 2;
+        }
         playerAYPos = mousePosition.y - (BAT_HEIGHT / 2) ;
     }
     
